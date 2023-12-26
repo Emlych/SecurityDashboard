@@ -13,29 +13,26 @@ import { CommonModule } from "@angular/common";
 })
 export class LoginComponent {
 	@Input() userEmail!: string;
-	password: string = "";
+	@Input() password: string = "";
 	errorMessage: string = "";
 
 	constructor(private authService: AuthService, private router: Router) {}
 
-	ngOnInit(): void {
-		this.checkAuthentication();
-	}
-
-	onContinue(): void {
-		this.router.navigateByUrl("dashboard");
-	}
+	ngOnInit(): void {}
 
 	onSubmitForm(): void {
-		console.log(this.userEmail);
-	}
-
-	private checkAuthentication(): void {
-		if (this.authService.isAuthenticated()) {
-			//
-		} else {
-			// Redirect to authentication page
-			this.errorMessage = "Invalid email or password";
-		}
+		this.authService.authenticate(this.userEmail, this.password).subscribe(
+			(result) => {
+				if (result) {
+					this.router.navigate(["/dashboard"]);
+				} else {
+					this.errorMessage = "Invalid email or password";
+				}
+			},
+			(error) => {
+				console.error("Authentication error", error);
+				this.errorMessage = "Authentication Failed";
+			}
+		);
 	}
 }
