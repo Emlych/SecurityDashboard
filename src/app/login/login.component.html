@@ -1,0 +1,24 @@
+<div id="background">
+	<div class="login-card">
+		<h2>Login</h2>
+		<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+		<form (ngSubmit)="onSubmitForm()">
+			<div class="form-group">
+				<input
+					type="email"
+					name="userEmail"
+					id="emailInput"
+					[(ngModel)]="userEmail"
+					placeholder="Email"
+				/>
+			</div>
+
+			<div class="form-group">
+				<input type="password" name="password" id="password" placeholder="Password" />
+			</div>
+
+			<button type="submit">Validate</button>
+			<p>Don't have an account, contact us.</p>
+		</form>
+	</div>
+</div>
