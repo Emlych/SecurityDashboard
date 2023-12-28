@@ -8,6 +8,13 @@ body {
 	background-color: #f2edf3;
 }
 
+.text-primary {
+	color: #f61983;
+}
+.text-left {
+	text-align: left;
+}
+
 .main-container {
 	padding-left: 40px;
 	padding-right: 40px;
@@ -16,6 +23,38 @@ body {
 .flex-row {
 	display: flex;
 	flex-direction: row;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.flex-row-align {
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	gap: 10px;
 }
+
+.card {
+	background-color: #fff;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	border-radius: 8px;
+	padding: 10px 15px;
+	word-wrap: break-word;
+}
+
+.card-title {
+	margin-top: 10px;
+	margin-bottom: 0.75rem;
+	padding-left: 25px;
+}
+.card-body {
+	padding: 15px 15px 0;
+}
+
+h4 {
+	font-size: 1.714em;
+	line-height: 1.45em;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

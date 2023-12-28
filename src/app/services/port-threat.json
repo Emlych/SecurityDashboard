@@ -1,0 +1,148 @@
+{
+	"ports": [
+		{
+			"portNumber": 80,
+			"service": "HTTP",
+			"portStatus": "Open",
+			"vulnerabilities": [
+				{
+					"name": "Heartbleed",
+					"severity": "High"
+				}
+			],
+			"sslConfig": {
+				"protocol": "TLS 1.2",
+				"cipherSuite": "AES256-GCM-SHA384",
+				"certificate": {
+					"subject": "example.com",
+					"issuer": "Let's Encrypt"
+				}
+			},
+			"firewallRules": [
+				{
+					"sourceIP": "192.168.1.0/24",
+					"allow": true
+				}
+			],
+			"overallGrade": 2.4,
+			"actions": "Consider updating SSL/TLS configuration."
+		},
+		{
+			"portNumber": 110,
+			"service": "HTTP",
+			"portStatus": "Open",
+			"vulnerabilities": [
+				{
+					"name": "Heartbleed",
+					"severity": "High"
+				}
+			],
+			"sslConfig": {
+				"protocol": "TLS 1.2",
+				"cipherSuite": "AES256-GCM-SHA384",
+				"certificate": {
+					"subject": "example.com",
+					"issuer": "Let's Encrypt"
+				},
+				"grade": "Weak"
+			},
+			"firewallRules": [
+				{
+					"sourceIP": "192.168.1.0/24",
+					"allow": "all"
+				}
+			],
+			"overallGrade": 2.4,
+			"actions": "Consider updating SSL/TLS configuration."
+		},
+		{
+			"portNumber": 130,
+			"service": "HTTP",
+			"portStatus": "Closed",
+			"vulnerabilities": [],
+			"sslConfig": {
+				"protocol": "TLS 1.2",
+				"cipherSuite": "AES256-GCM-SHA384",
+				"certificate": {
+					"subject": "example.com",
+					"issuer": "Let's Encrypt"
+				}
+			},
+			"firewallRules": [
+				{
+					"sourceIP": "192.168.1.0/24",
+					"allow": true
+				}
+			],
+			"overallGrade": 2.4,
+			"actions": "Consider updating SSL/TLS configuration.",
+			"detailsLink": "/port-details/80"
+		},
+		{
+			"portNumber": 443,
+			"service": "HTTPS",
+			"portStatus": "Open",
+			"vulnerabilities": [
+				{
+					"name": "POODLE",
+					"severity": "High",
+					"description": "SSLv3 vulnerability",
+					"reference": "CVE-2014-3566"
+				},
+				{
+					"name": "Heartbleed",
+					"severity": "Medium",
+					"description": "Information disclosure in OpenSSL",
+					"reference": "CVE-2014-0160"
+				}
+			],
+			"sslConfig": {
+				"protocol": "TLS 1.3",
+				"cipherSuite": "AES128-GCM-SHA256",
+				"certificate": {
+					"subject": "secure.example.com",
+					"issuer": "DigiCert"
+				}
+			},
+			"firewallRules": [
+				{
+					"sourceIP": "192.168.1.0/24",
+					"allow": true
+				},
+				{
+					"sourceIP": "10.0.0.0/8",
+					"allow": false
+				}
+			],
+			"overallGrade": 2.7,
+			"actions": "Update SSL/TLS configuration and review firewall rules."
+		},
+		{
+			"portNumber": 22,
+			"service": "SSH",
+			"portStatus": "Closed",
+			"vulnerabilities": [],
+			"sslConfig": null,
+			"firewallRules": null,
+			"overallGrade": 3.0,
+			"actions": "No specific actions needed for a closed port."
+		},
+		{
+			"portNumber": 8080,
+			"service": "HTTP",
+			"portStatus": "Open",
+			"vulnerabilities": [
+				{
+					"name": "LowSeverityVuln",
+					"severity": "Low",
+					"description": "Low severity vulnerability example",
+					"reference": "CVE-2023-XXXX"
+				}
+			],
+			"sslConfig": null,
+			"firewallRules": null,
+			"overallGrade": 2.0,
+			"actions": "Review and patch the low severity vulnerability."
+		}
+	]
+}

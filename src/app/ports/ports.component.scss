@@ -2,3 +2,42 @@ h1 {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+.left-bloc {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.widget {
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 10px 15px;
+	width: 200px;
+}
+
+.table-responsive {
+	padding-bottom: 10px;
+	display: block;
+	width: 100%;
+	overflow: scroll;
+	overflow-x: auto;
+	min-width: 400px;
+}
+.table {
+	width: 100%;
+	border-collapse: collapse;
+
+	> thead th {
+		vertical-align: bottom;
+		border-bottom: 2px solid #dee2e6;
+	}
+}
+
+.table td,
+.table th {
+	padding: 0.75rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+}

@@ -3,17 +3,57 @@
 	<h1>Ports monitoring</h1>
 	<div class="flex-row">
 		<div class="left-bloc">
-			<div>Card for risky ports</div>
-			<div>Card for graph</div>
+			<div class="card widget">Card for risky ports</div>
+			<div class="card widget">Card for graph</div>
 		</div>
 
 		<div class="right-bloc">
-			<table>
-				<thead>
-					jj
-				</thead>
-				<tbody></tbody>
-			</table>
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Port details</h4>
+					<p class="card-category">Here is a subtitle for this table</p>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<th>Port number</th>
+								<th>Status</th>
+								<th>Service</th>
+								<th class="text-left">Vulnerability</th>
+								<th>SSL/TLS</th>
+								<th>Firewall permission</th>
+								<th>Overall Grade</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>80</td>
+									<td>Open</td>
+									<td>HTTP</td>
+
+									<td>
+										<div matTooltip="This is a tooltip" matTooltipPosition="above">
+											2 High, 1 Low
+										</div>
+									</td>
+									<td>Weak</td>
+									<td>Allow all</td>
+									<td>2.4</td>
+								</tr>
+								<tr>
+									<td>443</td>
+									<td>Open</td>
+									<td>HTTPS</td>
+									<td>1 High: POODLE, 1 Medium: Heartbleed</td>
+									<td>Weak</td>
+									<td>Allow specific IP</td>
+									<td>2.7</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
