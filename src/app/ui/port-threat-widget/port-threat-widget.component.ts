@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { SecurityService } from "../../services/security.service";
+import { PortThreat, SecurityService } from "../../services/security.service";
 
 @Component({
 	selector: "app-port-threat-widget",
@@ -10,15 +10,18 @@ import { SecurityService } from "../../services/security.service";
 	styleUrl: "./port-threat-widget.component.scss",
 })
 export class DashboardWidgetsComponent {
-	portThreats: string[] = [];
+	ports: PortThreat[] = [];
 
 	constructor(private securityService: SecurityService) {}
 
 	ngOnInit(): void {
-		console.log("Before security service get port threats");
 		this.securityService.getPortThreats().subscribe(
-			(threats) => {
-				console.log(threats);
+			(portThreats) => {
+				console.log(portThreats);
+				// nb de ports avec threats high ou medium
+				// ng total de ports
+
+				this.ports = portThreats;
 			},
 			(error) => {
 				console.error("Error fetching port threats: ", error);
@@ -30,4 +33,6 @@ export class DashboardWidgetsComponent {
 	expandCard(): void {
 		this.isCardExpanded = !this.isCardExpanded;
 	}
+
+	countRiskyPorts = 1;
 }

@@ -1,19 +1,20 @@
 <div class="widget">
 	<h3>Risky ports</h3>
-	<p>6 out of 66 assets</p>
+	<p *ngIf="ports.length > 0">6 out of {{ ports.length }} assets</p>
+	<p *ngIf="ports.length === 0">No assets</p>
 
-	<div *ngIf="portThreats.length > 0" class="threat-card">
+	<div *ngIf="ports.length > 0" class="threat-card">
 		<div class="header" (click)="expandCard()">
-			<span>{{ portThreats.length }} alerts</span>
+			<span>{{ ports.length }} alerts</span>
 		</div>
 		<div class="content" *ngIf="isCardExpanded">
 			<ul>
 				<div>do something</div>
-				<!-- <li *ngFor="let threat of portThreats">{{ threat.portNumber }}</li> -->
+				<!-- <li *ngFor="let threat of ports">{{ threat.portNumber }}</li> -->
 			</ul>
 		</div>
 	</div>
-	<div *ngIf="portThreats.length === 0" class="no-threats-card">No Alert</div>
+	<div *ngIf="ports.length === 0" class="no-threats-card">No Alert</div>
 
 	<p>Last checked : 20 hours ago</p>
 </div>

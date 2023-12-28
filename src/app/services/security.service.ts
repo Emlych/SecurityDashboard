@@ -7,35 +7,105 @@ import { Observable, map } from "rxjs";
 	providedIn: "root",
 })
 export class SecurityService {
-	private portThreatsUrl = "./port-thread.json";
+	private portThreatsUrl = "../../assets/port-threat.json";
 
 	constructor(private _httpClient: HttpClient) {}
 
 	getPortThreats(): Observable<PortThreat[]> {
-		// Read data from port-threat.json and generate array of objects with:
 		return this._httpClient.get<{ ports: any[] }>(this.portThreatsUrl).pipe(
 			map((data) =>
-				data.ports.map((port) => ({
-					portNumber: port.portNumber,
-					overallGrade: port.overallGrade,
-					vulnerabilityGrade:
-						port.vulnerabilities.length > 0 ? port.vulnerabilities[0].severity : "Low",
-					sslConfigGrade: port.sslConfig ? port.sslConfig.grade : "Strong",
-					firewallRulesGrade: port.firewallRules
-						? port.firewallRules[0].allow
-						: "AllowAll",
-					actions: port.actions,
-				}))
+				data.ports.map((port) => {
+					// Determine vulnerability grade based on the highest severity
+					const vulnerabilityGrade = this.determineVulnerabilityGrade(
+						port.vulnerabilities
+					);
+					const overallGrade = this.calculateOverallGrade(port);
+
+					return {
+						portNumber: port.portNumber,
+						portStatus: port.portStatus,
+						portService: port.service,
+						overallGrade,
+						vulnerabilities: port.vulnerabilities.map((vuln: any) => ({
+							name: vuln.name,
+							severity: vuln.severity,
+						})),
+						vulnerabilityGrade,
+						sslConfigGrade: port.sslConfig ? "Low" : "High",
+						firewallRules: port.firewallRules ? "AllowSpecificIPs" : "AllowAll",
+						firewallRulesGrade: port.firewallRules ? "Low" : "High",
+						actions: port.actions,
+					};
+				})
 			)
 		);
 	}
+
+	private determineVulnerabilityGrade(vulnerabilities: any[]): "High" | "Medium" | "Low" {
+		let hasHighSeverity = false;
+		let hasMediumSeverity = false;
+
+		for (const vuln of vulnerabilities) {
+			const severity = vuln.severity;
+			if (severity === "High") {
+				hasHighSeverity = true;
+				break;
+			} else if (severity === "Medium") {
+				hasMediumSeverity = true;
+			}
+		}
+
+		if (hasHighSeverity) {
+			return "Low";
+		} else if (hasMediumSeverity) {
+			return "Medium";
+		} else {
+			return "High";
+		}
+	}
+
+	private calculateOverallGrade(port: any): number {
+		const { portStatus, vulnerabilityGrade, sslConfig, firewallRules } = port;
+
+		if (portStatus === "Close") return 1; // Low
+
+		const grades = [
+			this.mapGradeToNumber(vulnerabilityGrade),
+			this.mapGradeToNumber(sslConfig ? "Low" : "High"),
+			this.mapGradeToNumber(firewallRules ? "Low" : "High"),
+		];
+
+		return Math.max(...grades);
+	}
+
+	private mapGradeToNumber(grade: string): number {
+		switch (grade) {
+			case "High":
+				return 3;
+			case "Medium":
+				return 2;
+			case "Low":
+				return 1;
+			default:
+				return 1; // Default to Low
+		}
+	}
 }
 
-interface PortThreat {
+export interface PortThreat {
 	portNumber: number;
+	portStatus: "Open" | "Close";
+	portService: string;
 	overallGrade: number;
+	vulnerabilities: Vulnerabilities[];
 	vulnerabilityGrade: "High" | "Medium" | "Low";
-	sslConfigGrade: "Weak" | "Moderate" | "Strong";
-	firewallRulesGrade: "AllowAll" | "AllowSpecificIPs" | "DenyAll";
+	sslConfigGrade: "High" | "Low";
+	firewallRules: "AllowAll" | "AllowSpecificIPs" | "DenyAll";
+	firewallRulesGrade: "High" | "Medium" | "Low";
 	actions: string;
+}
+
+interface Vulnerabilities {
+	name: string;
+	severity: "High" | "Medium" | "Low";
 }
