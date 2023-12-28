@@ -3,3 +3,19 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+
+body {
+	background-color: #f2edf3;
+}
+
+.main-container {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}

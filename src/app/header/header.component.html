@@ -1,0 +1,28 @@
+<nav class="main-container">
+	<div>
+		<a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page"
+			>Dashboard</a
+		>
+
+		<a routerLink="/ports" routerLinkActive="active" ariaCurrentWhenActive="page"
+			>Ports</a
+		>
+		<a routerLink="/reports" routerLinkActive="active" ariaCurrentWhenActive="page"
+			>Reports</a
+		>
+		<a routerLink="/alerts" routerLinkActive="active" ariaCurrentWhenActive="page"
+			>Alerts</a
+		>
+	</div>
+
+	<div class="flex-row">
+		<div class="dropdown-container">
+			<button class="dropdown-button" (click)="toggleUserMenu()">U</button>
+			<div *ngIf="isUserMenuOpen" class="dropdown-menu">
+				<div class="dropdown-item">Disconnect</div>
+			</div>
+		</div>
+
+		<div>Username</div>
+	</div>
+</nav>
